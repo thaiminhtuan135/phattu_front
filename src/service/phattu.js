@@ -13,9 +13,7 @@ const deleteById = async (id) => {
 }
 
 const updateById = async (id, formData) => {
-  return await AxiosGlobal.put(`http://localhost:8084/api/v1/${CONTROLLER_NAME}/${id}/edit`, {} , {
-    params: formData,
-  });
+  return await AxiosGlobal.put(`http://localhost:8084/api/v1/${CONTROLLER_NAME}/${id}/edit`, formData, {});
 }
 const PhatTuService = {
   getAll,
