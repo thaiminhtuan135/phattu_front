@@ -19,12 +19,16 @@ const props = defineProps({
     type: Object,
     required: false,
   },
+  kieuThanhVien: {
+    type: Array,
+    required: true,
+  },
   isUpdate: {
     type: Boolean,
     required: false
   },
 })
-
+const isUpdateImg = ref(false);
 const flagShow = ref(false);
 const message = ref({
   message: "",
@@ -45,10 +49,9 @@ let phatTu = ref({
   ngayXuatGia: '',
   ngayHoanTuc: '',
   gioiTinh: '',
+  kieu_thanh_vien_id: null,
   daHoanTuc: false,
-  isUpdateImg: false,
 });
-
 const filePreview = ref("");
 const fileInput = ref(null);
 onBeforeMount(async () => {
@@ -84,7 +87,7 @@ const onSubmit = async () => {
   //   isUpdateImg: phatTu.value.isUpdateImg,
   // }
   const formData = new FormData();
-  formData.append("isUpdateImg", phatTu.value.isUpdateImg);
+  formData.append("isUpdateImg", isUpdateImg.value);
   formData.append("ho", phatTu.value.ho);
   formData.append("tenDem", phatTu.value.tenDem);
   formData.append("ten", phatTu.value.ten);
@@ -97,6 +100,7 @@ const onSubmit = async () => {
   formData.append("ngayHoanTuc", moment(phatTu.value.ngayHoanTuc).format('YYYY-MM-DD'));
   formData.append("gioiTinh", phatTu.value.gioiTinh);
   formData.append("daHoanTuc", phatTu.value.daHoanTuc);
+  formData.append("kieuThanhVien", phatTu.value.kieu_thanh_vien_id);
 
   // const res = await PhatTuService.updateById(phatTu.value.id, formData);
   axios
@@ -129,10 +133,10 @@ const chooseImage = () => {
 }
 const clearImagePreview = () => {
   filePreview.value = "";
-  phatTu.value.isUpdateImg = true;
+  isUpdateImg.value = true;
 }
 const onChangeImg = (e) => {
-  phatTu.value.isUpdateImg = true;
+  isUpdateImg.value = true;
   phatTu.value.anhChup = e.target.files[0];
   let file = fileInput.value;
   let imgFile = file.files;
@@ -336,6 +340,20 @@ const onChangeImg = (e) => {
                       class="border-0"
                       v-model="phatTu.gioiTinh"
                       :items="items"
+                    />
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+                    <CustomSelect
+                      item-title="title"
+                      item-value="value"
+                      label="Kiểu thành viên"
+                      class="border-0"
+                      v-model="phatTu.kieu_thanh_vien_id"
+                      :items="kieuThanhVien"
                     />
                   </v-col>
                   <v-col
