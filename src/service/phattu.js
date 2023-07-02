@@ -15,10 +15,15 @@ const deleteById = async (id) => {
 const updateById = async (id, formData) => {
   return await AxiosGlobal.put(`http://localhost:8084/api/v1/${CONTROLLER_NAME}/${id}/edit`, formData, {});
 }
+
+const getKieuThanhVien = async () => {
+  return await AxiosGlobal.get(`http://localhost:8084/api/v1/${CONTROLLER_NAME}/get-data/kieu-thanh-vien`)
+}
 const PhatTuService = {
   getAll,
   deleteById,
   updateById,
+  getKieuThanhVien,
 }
 
 export default PhatTuService;
