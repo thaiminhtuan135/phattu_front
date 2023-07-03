@@ -23,6 +23,10 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  chuas: {
+    type: Array,
+    required: true,
+  },
   isUpdate: {
     type: Boolean,
     required: false
@@ -50,6 +54,7 @@ let phatTu = ref({
   ngayHoanTuc: '',
   gioiTinh: '',
   kieu_thanh_vien_id: null,
+  chuaId: null,
   daHoanTuc: false,
 });
 const filePreview = ref("");
@@ -101,6 +106,7 @@ const onSubmit = async () => {
   formData.append("gioiTinh", phatTu.value.gioiTinh);
   formData.append("daHoanTuc", phatTu.value.daHoanTuc);
   formData.append("kieuThanhVien", phatTu.value.kieu_thanh_vien_id);
+  formData.append("chuaId", phatTu.value.chuaId);
 
   // const res = await PhatTuService.updateById(phatTu.value.id, formData);
   axios
@@ -354,6 +360,20 @@ const onChangeImg = (e) => {
                       class="border-0"
                       v-model="phatTu.kieu_thanh_vien_id"
                       :items="kieuThanhVien"
+                    />
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+                    <CustomSelect
+                      item-title="title"
+                      item-value="value"
+                      label="Chùa"
+                      class="border-0"
+                      v-model="phatTu.chuaId"
+                      :items="chuas"
                     />
                   </v-col>
                   <v-col

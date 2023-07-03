@@ -16,14 +16,19 @@ const updateById = async (id, formData) => {
   return await AxiosGlobal.put(`http://localhost:8084/api/v1/${CONTROLLER_NAME}/${id}/edit`, formData, {});
 }
 
-const getKieuThanhVien = async () => {
+const getAllKieuThanhVien = async () => {
   return await AxiosGlobal.get(`http://localhost:8084/api/v1/${CONTROLLER_NAME}/get-data/kieu-thanh-vien`)
+}
+
+const getAllChua = async () => {
+  return await AxiosGlobal.get(`http://localhost:8084/api/v1/${CONTROLLER_NAME}/get-data/chua`)
 }
 const PhatTuService = {
   getAll,
   deleteById,
   updateById,
-  getKieuThanhVien,
+  getAllKieuThanhVien,
+  getAllChua
 }
 
 export default PhatTuService;
