@@ -69,9 +69,9 @@ export default {
   methods: {
     mergeProps,
     logOut() {
-      document.cookie = 'token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;'
-      document.cookie = 'refreshToken=;expires=Thu, 01 Jan 1970 00:00:01 GMT;'
-      this.$router.push({ path: '/home/lobby' })
+      // document.cookie = 'token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+      // document.cookie = 'refreshToken=;expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+      this.$router.push({ path: '/login' })
     },
     goHome() {
       this.$router.push({ path: '/home/lobby' })
