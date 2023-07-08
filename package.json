@@ -17,18 +17,21 @@
     "@mdi/font": "7.0.96",
     "@vue/cli": "^5.0.8",
     "axios": "^1.4.0",
+    "chart.js": "^4.3.0",
+    "chartjs-plugin-dragdata": "^2.2.5",
+    "chartjs-plugin-zoom": "^2.0.1",
     "core-js": "^3.29.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "notyf": "^3.10.0",
     "roboto-fontface": "*",
     "vue": "^3.2.0",
+    "vue-flatpickr-component": "11.0.3",
     "vue-router": "^4.0.0",
     "vuejs3-datepicker": "^1.0.19",
     "vuetify": "^3.0.0",
     "vuex": "^4.0.0",
-    "webfontloader": "^1.0.0",
-    "vue-flatpickr-component": "11.0.3"
+    "webfontloader": "^1.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
