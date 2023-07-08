@@ -1,3 +1,6 @@
+<script setup>
+import avatar from "../../assets/image/avatar.png"
+</script>
 <template>
   <v-card
     flat
@@ -51,13 +54,17 @@
       </v-menu>
       <v-spacer></v-spacer>
       <v-btn prepend-icon="mdi mdi-logout-variant" @click="logOut()"> Log out </v-btn>
+<!--      <Profile :url-img="avatar" url-profile="/user/profile"/>-->
     </v-toolbar>
   </v-card>
 </template>
 <script>
 import { mergeProps } from 'vue'
+import Profile from "@/components/layouts/Profile.vue";
+
 export default {
   name: 'HeaderAdmin',
+  components: { Profile },
   data: () => ({
     items: [
       { title: 'Click Me1' },

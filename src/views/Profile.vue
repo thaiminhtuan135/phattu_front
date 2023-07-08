@@ -1,3 +1,20 @@
+<script setup>
+import PhatTuService from "@/service/phattu";
+import {onBeforeMount, ref} from "vue";
+
+const kieuThanhVien = ref([]);
+const chua = ref([]);
+onBeforeMount(async () => {
+  const resKieuThanhVien = await PhatTuService.getAllKieuThanhVien();
+  if (resKieuThanhVien) {
+    kieuThanhVien.value = resKieuThanhVien.data;
+  }
+  const resChua = await PhatTuService.getAllChua();
+  if (resChua) {
+    chua.value = resChua.data
+  }
+})
+</script>
 <template>
   <div class="px-4">
     <v-form v-model="form" @submit.prevent="onSubmit">
@@ -117,17 +134,40 @@
         ></v-select>
       </v-row>
       <v-row>
-        <p style="align-items: center" class="mr-2">Đã hoàn tục</p>
-        <v-btn-toggle>
-          <v-btn style="border: 2px solid grey;border-right: none" color="success" :active="phattu.daHoanTuc === true"
-                 @click="phattu.daHoanTuc = true">
-            <p>Có</p>
-          </v-btn>
+        <v-col cols="2">
+          <p style="align-items: center" class="mr-2">Đã hoàn tục</p>
+          <v-btn-toggle>
+            <v-btn style="border: 2px solid grey;border-right: none" color="success" :active="phattu.daHoanTuc === true"
+                   @click="phattu.daHoanTuc = true">
+              <p>Có</p>
+            </v-btn>
 
-          <v-btn style="border: 2px solid grey" color="success" :active="phattu.daHoanTuc === false" @click="phattu.daHoanTuc = false">
-            <p>không</p>
-          </v-btn>
-        </v-btn-toggle>
+            <v-btn style="border: 2px solid grey" color="success" :active="phattu.daHoanTuc === false"
+                   @click="phattu.daHoanTuc = false">
+              <p>không</p>
+            </v-btn>
+          </v-btn-toggle>
+        </v-col>
+        <v-col cols="3">
+          <CustomSelect
+            item-title="title"
+            item-value="value"
+            label="Kiểu thành viên"
+            class="border-0"
+            v-model="phattu.kieu_thanh_vien_id"
+            :items="kieuThanhVien"
+          />
+        </v-col>
+        <v-col cols="3">
+          <CustomSelect
+            item-title="title"
+            item-value="value"
+            label="Kiểu thành viên"
+            class="border-0"
+            v-model="phattu.chuaId"
+            :items="chua"
+          />
+        </v-col>
       </v-row>
       <div class="text-center mt-4">
         <v-btn
@@ -157,10 +197,11 @@ import Loader from "@/components/common/Loader.vue";
 import {validate} from "@/util/validate";
 import moment from "moment";
 import Notyf from "@/components/common/Notyf.vue";
+import CustomSelect from "@/components/common/form-elements/CustomSelect.vue";
 
 export default {
   name: "Profile",
-  components: {Notyf, Loader, InputCustom, Datepicker},
+  components: {Notyf, Loader, InputCustom, Datepicker, CustomSelect},
   created() {
     const {getToken} = AppStorage();
     const {getUserId} = User();
@@ -176,6 +217,7 @@ export default {
           this.filePreview = "http://localhost:8084/" + this.phattu.anhChup;
         }
       }).catch((r) => console.log(r));
+
   },
   data() {
     return {
@@ -190,6 +232,8 @@ export default {
         {title: 'Nu', value: 'Nu'},
         {title: 'Khac', value: 'Khac'},
       ],
+      kieuThanhViens: [],
+      chuas: [],
       messageSuccess: {
         message: "Edit successfully",
       },
@@ -239,6 +283,8 @@ export default {
       formData.append("ngayHoanTuc", moment(this.phattu.ngayHoanTuc).format('YYYY-MM-DD'));
       formData.append("gioiTinh", this.phattu.gioiTinh);
       formData.append("daHoanTuc", this.phattu.daHoanTuc);
+      formData.append("kieuThanhVien", this.phattu.kieu_thanh_vien_id);
+      formData.append("chuaId", this.phattu.chuaId);
       axios
         .put(`http://localhost:8084/api/v1/user/${this.phattu.id}/edit`, formData, {
           headers: {
