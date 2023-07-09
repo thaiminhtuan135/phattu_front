@@ -1,68 +1,77 @@
 <script setup>
 import AdminLayout from "@/components/Admin/AdminLayout.vue";
 import Chart from 'chart.js/auto'
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import 'chartjs-plugin-zoom';
 import 'chartjs-plugin-dragdata';
-const labels = [
-  'Red',
-  'Blue',
-  'Yellow',
-  'Green',
-  'Purple',
-  'Orange',
-  'Orange',
-  'Orange',
-  'Orange',
-  'Orange',
-  'Orange',
-  'Orange',
-  'Orange',
-];
-const data = {
+import thongKeService from "@/service/thongKe";
+
+let labels = [];
+let resData = [];
+const loadData = async () => {
+  const res = await thongKeService.thongKePhatTu();
+  if (res) {
+    for (let i = 0; i < res[0].length; i++) {
+      labels.push(res[0][i]);
+    }
+    for (let i = 0; i < res[1].length; i++) {
+      resData.push(res[1][i]);
+    }
+  }
+
+
+}
+
+const myChartCanvas = ref(null);
+const dataThongKePhatTu = {
   labels: labels,
   datasets: [
     {
-      label: 'My first data first',
+      label: 'Số lần phật tử tham gia hoạt động',
       backgroundColor: 'rgb(187,79,18)',
       borderColor: 'rgb(187,79,18)',
-      data: [10,20,30,40,50,60,40,12,24,20,2,50,12],
+      data: resData,
       pointStyle: 'circle',
-      pointRadius: 10,
+      pointRadius: 7,
       pointHoverRadius: 15,
-      // hoverBorderColor : 'rgb(96,210,17)'
       borderWidth: 2,
-
-
     },
-    // {
-    //   label: 'My first data second',
-    //   backgroundColor: 'rgb(224,16,151)',
-    //   borderColor: 'rgb(224,16,151)',
-    //   data: [70,80,90,100,110,120],
-    //   pointStyle: 'circle',
-    //   pointRadius: 10,
-    //   pointHoverRadius: 15
-    // },
   ]
 }
 
 const config = {
   type: 'line',
-  data: data,
+  data: dataThongKePhatTu,
   options: {
-    plugins: {},
-    responsive: true,
-    scales: {
-      x: {
-        type: 'category',
-        labels: labels
-      },
-      y: {
-        beginAtZero: true
+    plugins: {
+      title: {
+        display: true,
+        text: 'Custom Chart Title'
       }
     },
-    aspectRatio: 3,
+    aspectRatio: 5,
+    scales: {
+      x: {
+        offset: true,
+        grid: {
+          drawBorder: false,
+          color: 'rgb(187,79,18)',
+        },
+
+      },
+      y: {
+        beginAtZero: true,
+        max: 20,
+        grid: {
+          drawBorder: false,
+          color: 'rgb(187,79,18)',
+        },
+        ticks: {
+          stepSize: 5,
+          color: 'rgb(187,79,18)',
+        },
+      }
+    },
     animations: {
       radius: {
         duration: 400,
@@ -76,20 +85,25 @@ const config = {
       intersect: false,
       axis: 'x'
     },
-
-  },
+  }
 }
 
-onMounted(() => {
-  const myChart = new Chart(
-    document.getElementById('myChart'),
-    config
-  );
+onMounted(async () => {
+  await loadData();
+  new Chart(myChartCanvas.value, config);
 })
 </script>
 <template>
   <AdminLayout>
-    <canvas id="myChart"></canvas>
+    <h2>Biểu đồ thông kê số lần tham gia hoạt động đạo tràng</h2>
+    <div class="chartWrapper">
+      <div class="chartAreaWrapper">
+        <div class="chartAreaWrapper2">
+          <canvas ref="myChartCanvas"></canvas>
+        </div>
+      </div>
+    </div>
+    <h2 class="mt-8">Biểu đồ thống kê hoạt động đạo tràng</h2>
   </AdminLayout>
 </template>
 
@@ -98,4 +112,13 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.chartWrapper {
+  height: 650px;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.chartAreaWrapper2 {
+  width: 3000px; /* Adjust the width to fit your data */
+}
 </style>
