@@ -23,12 +23,16 @@ const getAllKieuThanhVien = async () => {
 const getAllChua = async () => {
   return await AxiosGlobal.get(`http://localhost:8084/api/v1/${CONTROLLER_NAME}/get-data/chua`)
 }
+const getPhatTuByDaoTrangId = async (daoTrangId) => {
+  return await AxiosGlobal.get(`http://localhost:8084/api/v1/${CONTROLLER_NAME}/getPhatTuByDaoTrangId/${daoTrangId}`)
+}
 const PhatTuService = {
   getAll,
   deleteById,
   updateById,
   getAllKieuThanhVien,
-  getAllChua
+  getAllChua,
+  getPhatTuByDaoTrangId,
 }
 
 export default PhatTuService;

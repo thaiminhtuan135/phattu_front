@@ -21,16 +21,24 @@ const props = defineProps({
   },
   kieuThanhVien: {
     type: Array,
-    required: true,
+    required: false,
   },
   chuas: {
     type: Array,
-    required: true,
+    required: false,
   },
   isUpdate: {
     type: Boolean,
     required: false
   },
+  showBtn : {
+    type: Boolean,
+    required: false,
+  },
+  icon : {
+    type: String,
+    required: true,
+  }
 })
 const isUpdateImg = ref(false);
 const flagShow = ref(false);
@@ -173,7 +181,7 @@ const onChangeImg = (e) => {
           >
             <v-icon
             >
-              mdi-pencil
+              {{icon}}
             </v-icon>
           </v-btn>
         </template>
@@ -404,7 +412,7 @@ const onChangeImg = (e) => {
                 </v-row>
               </v-container>
             </v-card-text>
-            <v-card-actions>
+            <v-card-actions v-if="showBtn">
               <v-spacer></v-spacer>
               <v-btn
                 color="blue-darken-1"

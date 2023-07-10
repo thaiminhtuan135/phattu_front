@@ -10,14 +10,20 @@ const update = async (id,data) => {
 }
 
 const deleteById = async (id) => {
-  const res = await AxiosGlobal.delete(`http://localhost:8084/api/v1/${CONTROLLER_NAME}/${id}`)
+  const res = await AxiosGlobal.delete(`http://localhost:8084/api/v1/admin/${CONTROLLER_NAME}/${id}`)
+  return res.data;
+}
+
+const getAll = async () => {
+  const res = await AxiosGlobal.get(`http://localhost:8084/api/v1/admin/${CONTROLLER_NAME}`)
   return res.data;
 }
 
 const DaoTrangService = {
   create,
   update,
-  deleteById
+  deleteById,
+  getAll
 }
 
 export default DaoTrangService;
