@@ -13,7 +13,7 @@ import {createApp} from 'vue'
 import Notyf from "@/components/common/Notyf.vue";
 // Plugins
 import {registerPlugins} from '@/plugins'
-
+// import CanvasJSChart from "@canvasjs/vue-charts"
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import {library} from '@fortawesome/fontawesome-svg-core'
 /* import specific icons */
@@ -27,5 +27,5 @@ app.component('font-awesome-icon', FontAwesomeIcon)
 app.component('notyf', Notyf)
 registerGlobalComponent(app);
 registerPlugins(app)
-
+// app.use(CanvasJSChart);
 app.mount('#app')
