@@ -79,24 +79,25 @@ export default {
         },
         {
           icon: "mdi mdi-bookshelf",
-          title: "Khóa học",
-          subnav: [
-            {
-              icon: "mdi mdi-bookshelf",
-              title: "Khóa học",
-              to: "/admin/course",
-            },
-            {
-              icon: "mdi mdi-book-open-variant",
-              title: "Học phần",
-              to: "/admin/chapter",
-            },
-            {
-              icon: "mdi mdi-checkbook",
-              title: "Bài học",
-              to: "/admin/lesson",
-            },
-          ],
+          title: "Đạo tràng",
+          // subnav: [
+          //   {
+          //     icon: "mdi mdi-bookshelf",
+          //     title: "Khóa học",
+          //     to: "/admin/course",
+          //   },
+          //   {
+          //     icon: "mdi mdi-book-open-variant",
+          //     title: "Học phần",
+          //     to: "/admin/chapter",
+          //   },
+          //   {
+          //     icon: "mdi mdi-checkbook",
+          //     title: "Bài học",
+          //     to: "/admin/lesson",
+          //   },
+          // ],
+          to: "/admin/dao-trang",
         },
         {
           icon: "mdi mdi-account-supervisor",

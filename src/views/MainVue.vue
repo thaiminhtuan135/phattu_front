@@ -314,8 +314,8 @@ onMounted(async () => {
                     <td>{{ item.selectable.soThanhVienThamGia }}</td>
                     <td>{{ moment(item.selectable.thoiGianToChuc).format("YYYY-MM-DD HH:mm:ss") }}</td>
                     <td>
-                      <v-btn rounded="rounded" :color=" item.selectable.daKetThuc ? 'error' : 'primary'">
-                        {{ item.selectable.daKetThuc ? 'Kết thúc' : 'Chưa kết thúc' }}
+                      <v-btn rounded="rounded" :color=" item.selectable.daKetThuc === '0' ?  'error' : 'primary'">
+                        {{ item.selectable.daKetThuc === "0" ? 'Kết thúc' : 'Chưa kết thúc' }}
                       </v-btn>
                     </td>
                     <td class="d-flex">

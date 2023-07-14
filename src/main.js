@@ -22,9 +22,15 @@ import {faCalendarPlus} from '@fortawesome/free-regular-svg-icons'
 import {faBloggerB} from '@fortawesome/free-brands-svg-icons'
 /* add icons to the library */
 library.add(faHouse, faCalendarPlus, faBloggerB)
+
+import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
+import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
+
+
 const app = createApp(App)
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.component('notyf', Notyf)
+app.component('VueCtkDateTimePicker', VueCtkDateTimePicker);
 registerGlobalComponent(app);
 registerPlugins(app)
 // app.use(CanvasJSChart);

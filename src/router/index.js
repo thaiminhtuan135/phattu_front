@@ -81,6 +81,12 @@ const routes = [
     beforeEnter: requireAuthAdmin,
   },
   {
+    path: '/admin/dao-trang',
+    name: 'admin-dao-trang',
+    component: () => import(/* webpackChunkName: "profile" */ '@/views/admin/DaoTrang.vue'),
+    beforeEnter: requireAuthAdmin,
+  },
+  {
     path: '/access-denied',
     name: 'access-denied',
     meta: {

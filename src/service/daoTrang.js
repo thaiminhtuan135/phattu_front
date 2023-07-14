@@ -19,11 +19,16 @@ const getAll = async () => {
   return res.data;
 }
 
+const getNguoiChuTri = async () => {
+  return await AxiosGlobal.get(`http://localhost:8084/api/v1/admin/${CONTROLLER_NAME}/get-data/nguoiChuTri`)
+}
+
 const DaoTrangService = {
   create,
   update,
   deleteById,
-  getAll
+  getAll,
+  getNguoiChuTri,
 }
 
 export default DaoTrangService;
