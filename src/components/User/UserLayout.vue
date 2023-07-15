@@ -1,21 +1,15 @@
+<script setup>
+import NavsBarUser from "@/components/User/NavsBar.vue";
+import HeaderUser from "@/components/User/HeaderUser.vue";
+</script>
 <template>
-  <NavsBar/>
+  <NavsBarUser/>
   <HeaderUser/>
   <div id="user-body">
         <slot></slot>
   </div>
 
 </template>
-
-<script>
-import NavsBar from "@/components/Admin/NavsBar.vue";
-import HeaderUser from "@/components/User/HeaderUser.vue";
-
-export default {
-  name: "UserLayout",
-  components: {HeaderUser, NavsBar}
-}
-</script>
 
 <style scoped>
 #user-body {

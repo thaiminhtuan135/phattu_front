@@ -75,7 +75,7 @@ export default {
           icon: "mdi-view-dashboard",
           title: "Dashboard",
           subnav: [],
-          to: "/admin/dashboard",
+          to: "/user/dashboard",
         },
         {
           icon: "mdi mdi-bookshelf",

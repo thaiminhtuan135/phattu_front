@@ -34,7 +34,6 @@ const tableConfigPhatTu = ref({
   headers: [
     {title: "Id", key: "id"},
     {title: "Email", key: "email"},
-    {title: "Ảnh", key: "anhChup"},
     {title: "Giới tính", key: "gioiTinh"},
     {title: "Pháp Danh", key: "phapDanh"},
     {title: "Số điện thoại", key: "soDienThoai"},
@@ -314,8 +313,8 @@ onMounted(async () => {
                     <td>{{ item.selectable.soThanhVienThamGia }}</td>
                     <td>{{ moment(item.selectable.thoiGianToChuc).format("YYYY-MM-DD HH:mm:ss") }}</td>
                     <td>
-                      <v-btn rounded="rounded" :color=" item.selectable.daKetThuc === '0' ?  'error' : 'primary'">
-                        {{ item.selectable.daKetThuc === "0" ? 'Kết thúc' : 'Chưa kết thúc' }}
+                      <v-btn rounded="rounded" :color=" item.selectable.daKetThuc === 0 ?  'error' : 'primary'">
+                        {{ item.selectable.daKetThuc === 0 ? 'Kết thúc' : 'Chưa kết thúc' }}
                       </v-btn>
                     </td>
                     <td class="d-flex">
@@ -356,11 +355,6 @@ onMounted(async () => {
                   <tr>
                     <td>{{ item.selectable.id }}</td>
                     <td>{{ item.selectable.email }}</td>
-                    <td>
-                      <img style="border-radius: 50px" v-if="item.selectable.anhChup"
-                           :src="'http://localhost:8084/'+item.selectable.anhChup" alt="" width="50" height="50">
-                      <p v-else>Chưa có ảnh</p>
-                    </td>
                     <td>{{ item.selectable.gioiTinh }}</td>
                     <td>{{ (item.selectable.phapDanh) }}</td>
                     <td>{{ (item.selectable.soDienThoai) }}</td>
