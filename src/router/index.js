@@ -21,7 +21,18 @@ const requireAuthAdmin = (to, from, next) =>{
     }
   }
 }
-
+const requireAuthManager = (to, from, next) =>{
+  if (!hasToken()) {
+    next({ name: "login", params: {} });
+  } else {
+    const user = getUser();
+    if (user.roles === "MANAGER") {
+      next();
+    } else {
+      next({ name: "access-denied", params: {} });
+    }
+  }
+}
 const routes = [
   {
     path: '/',
@@ -42,6 +53,18 @@ const routes = [
     name: 'admin-dashboard',
     component: () => import(/* webpackChunkName: "admin-dashboard" */ '@/views/MainVue.vue'),
     beforeEnter: requireAuthAdmin,
+  },
+  {
+    path: '/manager/dashboard',
+    name: 'manager-dashboard',
+    component: () => import(/* webpackChunkName: "admin-dashboard" */ '@/views/manager/ManagerDashboard.vue'),
+    beforeEnter: requireAuthManager,
+  },
+  {
+    path: '/manager/don-dang-ky',
+    name: 'manager-don-dang-ky',
+    component: () => import(/* webpackChunkName: "admin-dashboard" */ '@/views/manager/DonDangKy.vue'),
+    beforeEnter: requireAuthManager,
   },
   {
     path: '/user/dashboard',
