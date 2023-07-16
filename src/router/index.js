@@ -63,7 +63,7 @@ const routes = [
   {
     path: '/manager/don-dang-ky',
     name: 'manager-don-dang-ky',
-    component: () => import(/* webpackChunkName: "admin-dashboard" */ '@/views/manager/DonDangKy.vue'),
+    component: () => import(/* webpackChunkName: "admin-dashboard" */ '@/views/manager/DonDangKyManager.vue'),
     beforeEnter: requireAuthManager,
   },
   {
