@@ -104,6 +104,15 @@ const routes = [
     beforeEnter: requireAuth,
   },
   {
+    path: '/admin/profile',
+    name: 'admin-profile',
+    meta: {
+      layout: 'auth',
+    },
+    component: () => import(/* webpackChunkName: "profile" */ '@/views/Profile.vue'),
+    beforeEnter: requireAuthAdmin,
+  },
+  {
     path: '/admin/phattu',
     name: 'admin-phattu',
     component: () => import(/* webpackChunkName: "profile" */ '@/views/admin/PhatTu.vue'),

@@ -6,6 +6,7 @@ import DonDangKyService from "@/service/manager/donDangKy";
 import ComboBoxCustom from "@/components/common/form-elements/ComboBoxCustom.vue";
 import moment from "moment";
 import DuyetDonDangKy from "@/components/dialog/DuyetDonDangKy.vue";
+import CustomSelect from "@/components/common/form-elements/CustomSelect.vue";
 const loading = ref(false)
 const tableConfig = ref({
   headers: [
@@ -27,10 +28,15 @@ const tableConfig = ref({
     totalItems: 1
   },
 })
+let params = {
+  pageNo: tableConfig.value.pagination.pageNo,
+  pageSize: tableConfig.value.pagination.pageSize,
+  daKetThuc: null,
+}
 let arrDialog = ref([]);
 const loadData = async () => {
   loading.value = true;
-  const res = await DonDangKyService.getAllDaoTrang();
+  const res = await DonDangKyService.getAllDaoTrang(params);
   if (res) {
     tableConfig.value.data = res.data.content;
     tableConfig.value.pagination = {
@@ -46,7 +52,14 @@ const loadData = async () => {
   }
   loading.value = false;
 };
-
+const daKetThuc = ref([
+  {title: 'Kết thúc', value: "0"},
+  {title: 'Chưa kết thúc', value: "1"},
+]);
+const handleChangeDaKetThuc = (item) => {
+  params.daKetThuc = item;
+  loadData();
+}
 onBeforeMount(async () => {
   await loadData();
 })
@@ -55,6 +68,25 @@ onBeforeMount(async () => {
 <template>
   <ManagerLayout>
     <v-container>
+      <v-row>
+        <v-col cols="12">
+          <v-card class="flex">
+            <h2 class="py-1 px-2">Tìm kiếm đạo tràng</h2>
+            <v-row class="px-3">
+              <v-col cols="6">
+                <CustomSelect
+                  item-title="title"
+                  item-value="value"
+                  label="Tình trạng kết thúc"
+                  class="border-0"
+                  :items="daKetThuc"
+                  @update:model-value="handleChangeDaKetThuc"
+                />
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-col>
+      </v-row>
       <v-row>
         <v-col cols="12">
           <v-card>

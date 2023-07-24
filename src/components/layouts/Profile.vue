@@ -1,6 +1,6 @@
 <script setup>
 import avatar from "../../assets/image/avatar.png"
-const props = defineProps(["urlImg","urlProfile"])
+const props = defineProps(["urlImg","urlProfile","userName","role"])
 </script>
 
 <template>
@@ -47,9 +47,9 @@ const props = defineProps(["urlImg","urlProfile"])
             </template>
 
             <VListItemTitle class="font-weight-semibold">
-              John Doe
+              {{userName}}
             </VListItemTitle>
-            <VListItemSubtitle>Admin</VListItemSubtitle>
+            <VListItemSubtitle>{{ role }}</VListItemSubtitle>
           </VListItem>
 
           <VDivider class="my-2" />

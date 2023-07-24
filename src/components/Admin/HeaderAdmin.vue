@@ -53,26 +53,30 @@ import avatar from "../../assets/image/avatar.png"
         </v-list>
       </v-menu>
       <v-spacer></v-spacer>
-      <v-btn prepend-icon="mdi mdi-logout-variant" @click="logOut()"> Log out </v-btn>
-<!--      <Profile :url-img="avatar" url-profile="/user/profile"/>-->
+<!--      <v-btn prepend-icon="mdi mdi-logout-variant" @click="logOut()"> Log out </v-btn>-->
+      <Profile :url-img="avatar" url-profile="/admin/profile" :user-name="userName" role="Admin"/>
     </v-toolbar>
   </v-card>
 </template>
 <script>
 import { mergeProps } from 'vue'
 import Profile from "@/components/layouts/Profile.vue";
-
+import {User} from "@/auth/User";
 export default {
   name: 'HeaderAdmin',
   components: { Profile },
-  data: () => ({
-    items: [
-      { title: 'Click Me1' },
-      { title: 'Click Me2' },
-      { title: 'Click Me3' },
-      { title: 'Click Me4' }
-    ]
-  }),
+  data() {
+    const {getUser} = User();
+    return {
+      items: [
+        { title: 'Click Me1' },
+        { title: 'Click Me2' },
+        { title: 'Click Me3' },
+        { title: 'Click Me4' }
+      ],
+      userName: getUser().name,
+    }
+  },
   methods: {
     mergeProps,
     logOut() {
