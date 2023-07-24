@@ -73,6 +73,12 @@ const routes = [
     beforeEnter: requireAuth,
   },
   {
+    path: '/user/dang-ky-hoat-dong-dao-trang',
+    name: 'user-dang-ky-hoat-dong-dao-trang',
+    component: () => import(/* webpackChunkName: "admin-dashboard" */ '@/views/user/DangKyThamGiaDaoTrang.vue'),
+    beforeEnter: requireAuth,
+  },
+  {
     path: '/login',
     name: 'login',
     meta: {

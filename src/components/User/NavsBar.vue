@@ -79,24 +79,9 @@ export default {
         },
         {
           icon: "mdi mdi-bookshelf",
-          title: "Khóa học",
-          subnav: [
-            {
-              icon: "mdi mdi-bookshelf",
-              title: "Khóa học",
-              to: "/admin/course",
-            },
-            {
-              icon: "mdi mdi-book-open-variant",
-              title: "Học phần",
-              to: "/admin/chapter",
-            },
-            {
-              icon: "mdi mdi-checkbook",
-              title: "Bài học",
-              to: "/admin/lesson",
-            },
-          ],
+          title: "Tham gia hoạt động đạo tràng",
+          subnav: [],
+          to: "/user/dang-ky-hoat-dong-dao-trang",
         },
         {
           icon: "mdi mdi-account-supervisor",
@@ -137,44 +122,6 @@ export default {
               icon: "mdi mdi-note-remove",
               title: "Bài viết vi phạm",
               to: "/admin/courses",
-            },
-          ],
-        },
-        {
-          icon: "mdi mdi-home-edit-outline",
-          title: "Content trang chủ",
-          subnav: [
-            {
-              icon: "mdi mdi-image-move",
-              title: "Slide show",
-              to: "/admin/courses",
-            },
-            {
-              icon: "mdi mdi-page-layout-footer",
-              title: "Footer",
-              to: "/admin/courses",
-            },
-          ],
-        },
-        {
-          icon: "mdi mdi-table-account",
-          title: "Vlog của Xuyên Chi",
-          subnav: [
-            {
-              icon: "mdi mdi-note-multiple-outline",
-              title: "Danh sách blog",
-              to: "/admin/blog",
-            },
-          ],
-        },
-        {
-          icon: "mdi mdi-face-agent",
-          title: "Tư vấn học",
-          subnav: [
-            {
-              icon: "mdi mdi-note-multiple-outline",
-              title: "Danh sách yêu cầu",
-              to: "/admin/blog",
             },
           ],
         },

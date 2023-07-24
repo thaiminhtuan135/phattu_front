@@ -97,11 +97,14 @@ export default {
           this.flagShow = false;
           this.loginSuccess = true;
           this.message.message = "Login successfully";
-          if (userInfo.roles === "ADMIN" && hasToken()) {
+          if (userInfo.roles === "ADMIN"  && hasToken()) {
             this.$router.push({path: "/admin/dashboard"});
+          } else if (userInfo.roles === "MANAGER" && hasToken()) {
+            this.$router.push({path: "/mana ger/dashboard"});
           } else {
-            this.$router.push({path : "/user/dashboard" });
+            this.$router.push({path: "/user/dashboard"});
           }
+
         }).catch((err) => {
         console.log(err)
       });
