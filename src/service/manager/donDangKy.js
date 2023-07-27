@@ -11,8 +11,8 @@ const getAllDaoTrang = async (params) => {
   const res = await AxiosGlobal.get(`http://localhost:8084/api/v1/manager/${CONTROLLER_NAME}/getAllDaoTrang`,{params: params});
   return res;
 }
-const getAllByDaoTrangId = async (daoTrangId) => {
-  const res = await AxiosGlobal.get(`http://localhost:8084/api/v1/manager/${CONTROLLER_NAME}/getDonDangKyByDaoTRangId/${daoTrangId}`);
+const getAllByDaoTrangId = async (daoTrangId,params) => {
+  const res = await AxiosGlobal.get(`http://localhost:8084/api/v1/manager/${CONTROLLER_NAME}/getDonDangKyByDaoTRangId/${daoTrangId}`,{params : params});
   return res;
 }
 const update = async (data,id) => {

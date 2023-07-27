@@ -100,7 +100,7 @@ export default {
           if (userInfo.roles === "ADMIN"  && hasToken()) {
             this.$router.push({path: "/admin/dashboard"});
           } else if (userInfo.roles === "MANAGER" && hasToken()) {
-            this.$router.push({path: "/mana ger/dashboard"});
+            this.$router.push({path: "/manager/dashboard"});
           } else {
             this.$router.push({path: "/user/dashboard"});
           }

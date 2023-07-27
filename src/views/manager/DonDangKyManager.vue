@@ -32,6 +32,7 @@ let params = {
   pageNo: tableConfig.value.pagination.pageNo,
   pageSize: tableConfig.value.pagination.pageSize,
   daKetThuc: null,
+  ten : null
 }
 let arrDialog = ref([]);
 const loadData = async () => {
@@ -58,6 +59,9 @@ const daKetThuc = ref([
 ]);
 const handleChangeDaKetThuc = (item) => {
   params.daKetThuc = item;
+  loadData();
+}
+const searchByName = () => {
   loadData();
 }
 onBeforeMount(async () => {
@@ -113,7 +117,19 @@ onBeforeMount(async () => {
                           :items="tableConfig.pagination.pageSizeOptions"
                         />
                       </v-col>
-
+                      <v-col cols="6"></v-col>
+                      <v-col cols="3">
+                        <v-text-field
+                          density="compact"
+                          variant="solo"
+                          v-model="params.ten"
+                          label="Tìm kiếm tên đạo tràng"
+                          append-inner-icon="mdi-magnify"
+                          single-line
+                          hide-details
+                          @click:append-inner="searchByName"
+                        />
+                      </v-col>
                     </v-row>
                   </v-container>
                 </template>

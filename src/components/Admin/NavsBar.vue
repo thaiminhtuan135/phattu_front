@@ -101,83 +101,8 @@ export default {
         },
         {
           icon: "mdi mdi-account-supervisor",
-          title: "Tài khoản",
-          subnav: [
-            {
-              icon: "mdi mdi-account-supervisor",
-              title: "Danh sách tài khoản",
-              to: "/admin/courses",
-            },
-            {
-              icon: "mdi mdi-account-remove",
-              title: "Tài khoản vi phạm",
-              to: "/admin/courses",
-            },
-            {
-              icon: "mdi mdi-account-convert",
-              title: "Phân quyền tài khoản",
-              to: "/admin/courses",
-            },
-          ],
-        },
-        {
-          icon: "mdi mdi-book-open",
-          title: "Bài viết",
-          subnav: [
-            {
-              icon: "mdi mdi-note-multiple",
-              title: "Danh sách bài viết",
-              to: "/admin/post",
-            },
-            {
-              icon: "mdi mdi-note",
-              title: "Bài viết chờ duyệt",
-              to: "/admin/courses",
-            },
-            {
-              icon: "mdi mdi-note-remove",
-              title: "Bài viết vi phạm",
-              to: "/admin/courses",
-            },
-          ],
-        },
-        {
-          icon: "mdi mdi-home-edit-outline",
-          title: "Content trang chủ",
-          subnav: [
-            {
-              icon: "mdi mdi-image-move",
-              title: "Slide show",
-              to: "/admin/courses",
-            },
-            {
-              icon: "mdi mdi-page-layout-footer",
-              title: "Footer",
-              to: "/admin/courses",
-            },
-          ],
-        },
-        {
-          icon: "mdi mdi-table-account",
-          title: "Vlog của Xuyên Chi",
-          subnav: [
-            {
-              icon: "mdi mdi-note-multiple-outline",
-              title: "Danh sách blog",
-              to: "/admin/blog",
-            },
-          ],
-        },
-        {
-          icon: "mdi mdi-face-agent",
-          title: "Tư vấn học",
-          subnav: [
-            {
-              icon: "mdi mdi-note-multiple-outline",
-              title: "Danh sách yêu cầu",
-              to: "/admin/blog",
-            },
-          ],
+          title: "Phật tử",
+          to: "/admin/phattu",
         },
       ],
     };

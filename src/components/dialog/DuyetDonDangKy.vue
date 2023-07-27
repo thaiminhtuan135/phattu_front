@@ -43,9 +43,17 @@ const tableConfig = ref({
   },
 })
 let dataCheck = [];
+let params = {
+  pageNo: tableConfig.value.pagination.pageNo,
+  pageSize: tableConfig.value.pagination.pageSize,
+  ten : null
+}
+const searchByName = () => {
+  handleGetDonDangKyByDaoTrangId();
+}
 const handleGetDonDangKyByDaoTrangId = async () => {
   loading.value = true;
-  const res = await DonDangKyService.getAllByDaoTrangId(props.daoTrangId);
+  const res = await DonDangKyService.getAllByDaoTrangId(props.daoTrangId,params);
   if (res) {
     console.log(res.data)
     tableConfig.value.data = res.data;
@@ -121,7 +129,19 @@ const handleDuyetDon =async (donDangKyId,trangThaiDon) => {
                                 :items="tableConfig.pagination.pageSizeOptions"
                               />
                             </v-col>
-
+                            <v-col cols="5"></v-col>
+                            <v-col cols="4">
+                              <v-text-field
+                                density="compact"
+                                variant="solo"
+                                v-model="params.ten"
+                                label="Tìm kiếm tên phật tử"
+                                append-inner-icon="mdi-magnify"
+                                single-line
+                                hide-details
+                                @click:append-inner="searchByName"
+                              />
+                            </v-col>
                           </v-row>
                         </v-container>
                       </template>

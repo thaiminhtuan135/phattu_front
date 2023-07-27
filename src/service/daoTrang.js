@@ -15,8 +15,8 @@ const deleteById = async (id) => {
   return res.data;
 }
 
-const getAll = async () => {
-  const res = await AxiosGlobal.get(`http://localhost:8084/api/v1/admin/${CONTROLLER_NAME}`)
+const getAll = async (params) => {
+  const res = await AxiosGlobal.get(`http://localhost:8084/api/v1/admin/${CONTROLLER_NAME}`,{params : params})
   return res.data;
 }
 
@@ -24,8 +24,8 @@ const getNguoiChuTri = async () => {
   return await AxiosGlobal.get(`http://localhost:8084/api/v1/admin/${CONTROLLER_NAME}/get-data/nguoiChuTri`)
 }
 //user
-const getAllByUser =async () => {
-    return await AxiosGlobal.get(`http://localhost:8084/api/v1/user/${CONTROLLER_NAME}`)
+const getAllByUser =async (params) => {
+    return await AxiosGlobal.get(`http://localhost:8084/api/v1/user/${CONTROLLER_NAME}`,{params: params})
 }
 const DaoTrangService = {
   create,

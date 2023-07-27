@@ -39,9 +39,14 @@ const tableConfig = ref({
 })
 const loading = ref(false)
 let dataCheck = [];
+let params = {
+  pageNo: tableConfig.value.pagination.pageNo,
+  pageSize: tableConfig.value.pagination.pageSize,
+  ten: null,
+}
 const loadData = async () => {
   loading.value = true;
-  const res = await DaoTrangService.getAllByUser();
+  const res = await DaoTrangService.getAllByUser(params);
   if (res) {
     tableConfig.value.data = res.data.content;
     tableConfig.value.pagination = {
@@ -62,6 +67,9 @@ const loadData = async () => {
   }
   loading.value = false;
 };
+const searchByName = () => {
+  loadData();
+}
 onBeforeMount(async () => {
   await loadData();
 })
@@ -99,7 +107,7 @@ const handleDangKy = async (daoTrangId) => {
                 :sortable="false"
               >
                 <template #top>
-                  <v-container>1
+                  <v-container>
                     <v-row
                       justify="start"
                       align="center"
@@ -110,7 +118,21 @@ const handleDangKy = async (daoTrangId) => {
                           :items="tableConfig.pagination.pageSizeOptions"
                         />
                       </v-col>
+                      <v-col cols="3"></v-col>
+                      <v-col cols="3" offset="3">
+                        <v-text-field
+                          density="compact"
+                          variant="solo"
+                          v-model="params.ten"
+                          label="Tìm kiếm tên đạo tràng"
+                          append-inner-icon="mdi-magnify"
+                          single-line
+                          hide-details
+                          @click:append-inner="searchByName"
+                        />
+                      </v-col>
                     </v-row>
+
                   </v-container>
                 </template>
                 <template #item="{ item }">

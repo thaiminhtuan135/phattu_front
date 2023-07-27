@@ -10,6 +10,7 @@ import PhatTuService from "@/service/phattu";
 import moment from "moment";
 import {VDataTable} from 'vuetify/labs/VDataTable'
 import AddEditPhatTu from "@/components/dialog/AddEditPhatTu.vue";
+import CustomSelect from "@/components/common/form-elements/CustomSelect.vue";
 
 const tableConfigDaoTrang = ref({
   headers: [
@@ -30,10 +31,30 @@ const tableConfigDaoTrang = ref({
     totalItems: 1
   },
 })
+let paramsDaoTrang = {
+  pageNo: tableConfigDaoTrang.value.pagination.pageNo,
+  pageSize: tableConfigDaoTrang.value.pagination.pageSize,
+  daKetThuc: null,
+  ten: null,
+}
+const daKetThuc = ref([
+  {title: 'Kết thúc', value: "0"},
+  {title: 'Chưa kết thúc', value: "1"},
+]);
+const handleChangeDaKetThuc = (item) => {
+  paramsDaoTrang.daKetThuc = item;
+  loadData();
+}
+const searchByName = () => {
+  loadData();
+}
+
+
 const tableConfigPhatTu = ref({
   headers: [
     {title: "Id", key: "id"},
     {title: "Email", key: "email"},
+    {title: "Tên", key: "ten"},
     {title: "Giới tính", key: "gioiTinh"},
     {title: "Pháp Danh", key: "phapDanh"},
     {title: "Số điện thoại", key: "soDienThoai"},
@@ -48,6 +69,35 @@ const tableConfigPhatTu = ref({
     totalItems: 1
   },
 })
+let paramsPhatTu = {
+  pageNo: tableConfigPhatTu.value.pagination.pageNo,
+  pageSize: tableConfigPhatTu.value.pagination.pageSize,
+  daHoanTuc: null,
+  gioiTinh: null,
+  ten: null,
+}
+const filter = ref({
+  byName: [
+    {title: 'Đã hoàn tục', value: true},
+    {title: 'Chưa hoàn tục', value: false},
+  ],
+  byGioiTinh: [
+    {title: 'Nam', value: "Nam"},
+    {title: 'Nu', value: "Nu"},
+    {title: 'Khac', value: "Khac"},
+  ]
+})
+const handleChangeHoanTuc = (e) => {
+  paramsPhatTu.daHoanTuc = e;
+  handleClickShowDetail(arg.value.daoTrangId, arg.value.tenDaoTrang, arg.value.time);
+}
+const handleChangeGioiTinh = (e) => {
+  paramsPhatTu.gioiTinh = e;
+  handleClickShowDetail(arg.value.daoTrangId, arg.value.tenDaoTrang, arg.value.time);
+}
+const searchByNamePhatTu = () => {
+  handleClickShowDetail(arg.value.daoTrangId, arg.value.tenDaoTrang, arg.value.time);
+}
 const loading = ref(false)
 const loadingPhatTu = ref(false)
 const table = ref('table')
@@ -70,7 +120,7 @@ const loadData = async () => {
     }
   }
   // 👉 chart thong ke hoat dong dao trang
-  const resHDDT = await DaoTrangService.getAll();
+  const resHDDT = await DaoTrangService.getAll(paramsDaoTrang);
 
   for (let i = 0; i < resHDDT.content.length; i++) {
     labelsHDDT.push(moment(resHDDT.content[i].thoiGianToChuc).format('YYYY MMM DD, HH:mm'))
@@ -95,9 +145,19 @@ const kieuThanhVien = ref([]);
 const chuas = ref([]);
 const ten = ref("");
 const timeDaotrang = ref("");
+const arg = ref({
+  daoTrangId: null,
+  tenDaoTrang: null,
+  time: null,
+});
+
 const handleClickShowDetail = async (daoTrangId,tenDaoTrang,time) => {
+  arg.value.daoTrangId = daoTrangId;
+  arg.value.tenDaoTrang = tenDaoTrang;
+  arg.value.time = time;
+
   loadingPhatTu.value = true;
-  const res = await PhatTuService.getPhatTuByDaoTrangId(daoTrangId);
+  const res = await PhatTuService.getPhatTuByDaoTrangId(daoTrangId,paramsPhatTu);
   if (res) {
     tableConfigPhatTu.value.data = res.data.content;
     tableConfigPhatTu.value.pagination = {
@@ -120,6 +180,7 @@ const handleClickShowDetail = async (daoTrangId,tenDaoTrang,time) => {
   timeDaotrang.value = time;
   loadingPhatTu.value = false;
 }
+
 
 // Biểu đồ thông kê số lần tham gia hoạt động đạo tràng
 const myChartCanvas = ref(null);
@@ -294,6 +355,38 @@ onMounted(async () => {
       <v-row>
         <v-col cols="12">
           <v-card>
+            <v-row>
+              <v-col cols="12">
+                  <v-row class="px-3">
+                    <v-col cols="6">
+                      <CustomSelect
+                        item-title="title"
+                        item-value="value"
+                        label="Tình trạng kết thúc"
+                        class="border-0"
+                        :items="daKetThuc"
+                        @update:model-value="handleChangeDaKetThuc"
+                      />
+                    </v-col>
+                  </v-row>
+              </v-col>
+            </v-row>
+            <v-row justify="end">
+              <v-col cols="3" >
+                <v-text-field
+                  density="compact"
+                  variant="solo"
+                  v-model="paramsDaoTrang.ten"
+                  label="Tìm kiếm tên đạo tràng"
+                  append-inner-icon="mdi-magnify"
+                  single-line
+                  hide-details
+                  @click:append-inner="searchByName"
+                />
+              </v-col>
+              <v-col cols="1">
+              </v-col>
+            </v-row>
             <v-card-title>Đạo tràng</v-card-title>
             <v-card-text>
               <VDataTable
@@ -341,6 +434,49 @@ onMounted(async () => {
         <v-col cols="12">
           <v-card>
             <v-card-title>Thông tin phật tử buổi {{ten}} tổ chức vào {{moment(timeDaotrang).format("YYYY-MM-DD HH:mm:ss")}}</v-card-title>
+            <v-row>
+              <v-col cols="12">
+                  <h2 class="py-1 px-2">Tìm kiếm phật tử</h2>
+                  <v-row class="px-3">
+                    <v-col cols="6">
+                      <CustomSelect
+                        item-title="title"
+                        item-value="value"
+                        label="Tình trạng hoàn tục"
+                        class="border-0"
+                        :items="filter.byName"
+                        @update:model-value="handleChangeHoanTuc"
+                      />
+                    </v-col>
+                    <v-col cols="6">
+                      <CustomSelect
+                        item-title="title"
+                        item-value="value"
+                        label="Giới Tính"
+                        class="border-0"
+                        :items="filter.byGioiTinh"
+                        @update:model-value="handleChangeGioiTinh"
+                      />
+                    </v-col>
+                  </v-row>
+              </v-col>
+            </v-row>
+            <v-row justify="end">
+              <v-col cols="3" >
+                <v-text-field
+                  density="compact"
+                  variant="solo"
+                  v-model="paramsPhatTu.ten"
+                  label="Tìm kiếm tên phật tử"
+                  append-inner-icon="mdi-magnify"
+                  single-line
+                  hide-details
+                  @click:append-inner="searchByNamePhatTu"
+                />
+              </v-col>
+              <v-col cols="1">
+              </v-col>
+            </v-row>
             <v-card-text>
               <VDataTable
                 ref="tablePhatTu"
@@ -355,6 +491,7 @@ onMounted(async () => {
                   <tr>
                     <td>{{ item.selectable.id }}</td>
                     <td>{{ item.selectable.email }}</td>
+                    <td>{{ item.selectable.ten }}</td>
                     <td>{{ item.selectable.gioiTinh }}</td>
                     <td>{{ (item.selectable.phapDanh) }}</td>
                     <td>{{ (item.selectable.soDienThoai) }}</td>
