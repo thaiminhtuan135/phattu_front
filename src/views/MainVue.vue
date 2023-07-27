@@ -11,7 +11,8 @@ import moment from "moment";
 import {VDataTable} from 'vuetify/labs/VDataTable'
 import AddEditPhatTu from "@/components/dialog/AddEditPhatTu.vue";
 import CustomSelect from "@/components/common/form-elements/CustomSelect.vue";
-
+import jsPDF from "jspdf";
+import autoTable from 'jspdf-autotable'
 const tableConfigDaoTrang = ref({
   headers: [
     {title: "Id", key: "id"},
@@ -48,7 +49,6 @@ const handleChangeDaKetThuc = (item) => {
 const searchByName = () => {
   loadData();
 }
-
 
 const tableConfigPhatTu = ref({
   headers: [
@@ -102,7 +102,6 @@ const loading = ref(false)
 const loadingPhatTu = ref(false)
 const table = ref('table')
 const tablePhatTu = ref('tablePhatTu')
-
 
 let labels = [];
 let resData = [];
@@ -330,6 +329,39 @@ onMounted(async () => {
   new Chart(myChartCanvas2.value, configThongKeSoLuong);
 })
 
+// pdf
+const dataPdf = [
+  {title : "item1" , body: "I am item 1 body text"},
+  {title : "item2" , body: "I am item 1 body text 1"},
+  {title : "item3" , body: "I am item 1 body text 2"},
+  {title : "item4" , body: "I am item 1 body text 3"},
+]
+const downLoadPdf = () => {
+  let pdf = new jsPDF({
+    orientation: "portrait",
+    unit: "in",
+    format: "letter",
+  });
+  pdf.setFontSize(16).text(`Information about Buddhists ${ten.value} the meeting will be held in ${moment(timeDaotrang.value).format("YYYY-MM-DD HH:mm:ss")}`, 0.5, 1.0);
+  pdf.setLineWidth(0.01).line(0.5, 1.1, 8.0, 1.1);
+  autoTable(pdf, {
+    styles: { fontSize : 12 },
+    startY : 1.5,
+    showFoot: "everyPage",
+    theme: "striped",
+    body: tableConfigPhatTu.value.data,
+    columns: [
+      {header: "Id", dataKey: "id"},
+      {header: "Email", dataKey: "email"},
+      {header: "Tên", dataKey: "ten"},
+      {header: "Sex", dataKey: "gioiTinh"},
+      {header: "Pháp Danh", dataKey: "phapDanh"},
+      {header: "Telephone", dataKey: "soDienThoai"},
+    ],
+  })
+
+  pdf.save('example.pdf');
+}
 </script>
 <template>
   <AdminLayout>
@@ -475,6 +507,9 @@ onMounted(async () => {
                 />
               </v-col>
               <v-col cols="1">
+                <v-btn append-icon="mdi-file-pdf-box" color="success" @click="downLoadPdf">
+                  Xuất
+                </v-btn>
               </v-col>
             </v-row>
             <v-card-text>
@@ -517,6 +552,9 @@ onMounted(async () => {
       </v-row>
     </v-container>
     <!--    <h2 class="mt-8">Biểu đồ thống kê hoạt động đạo tràng</h2>-->
+    <v-btn @click="downLoadPdf">
+      down load
+    </v-btn>
   </AdminLayout>
 </template>
 

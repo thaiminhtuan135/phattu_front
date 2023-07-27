@@ -24,6 +24,8 @@
     "chartjs-plugin-dragdata": "^2.2.5",
     "chartjs-plugin-zoom": "^2.0.1",
     "core-js": "^3.29.0",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.31",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "notyf": "^3.10.0",
